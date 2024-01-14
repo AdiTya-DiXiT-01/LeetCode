@@ -67,3 +67,40 @@ public:
     }
 };
 
+/*
+OPTIMIZED APPROACH
+REDO 
+*/
+
+class Solution
+{
+public:
+    bool closeStrings(string word1, string word2)
+    {
+        vector<int> a1(26, 0);
+        vector<int> a2(26, 0);
+
+        if (word1.size() != word2.size())
+            return false;
+
+        for (int i = 0; i < word1.size(); i++)
+        {
+            a1[word1[i] - 'a']++;
+            a2[word2[i] - 'a']++;
+        }
+
+        for (int i = 0; i < 26; i++) // <-------------- IMPORTANT STEP TO CHECK -------------->
+        {
+            if ((a1[i] > 0 and a2[i] == 0) or (a1[i] == 0 and a2[i] > 0))
+                return false;
+        }
+
+        sort(a1.begin(), a1.end());
+        sort(a2.begin(), a2.end());
+
+        if (a1 == a2)
+            return true;
+
+        return false;
+    }
+};
